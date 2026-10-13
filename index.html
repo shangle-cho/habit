@@ -1,0 +1,459 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 루틴 & 습관 대시보드</title>
+  <style>
+    :root {
+      --bg-color: #f8f6f2;
+      --card-bg: #ffffff;
+      --primary: #ff6b6b;
+      --primary-light: #ffe3e3;
+      --secondary: #4ecdc4;
+      --text-main: #2d3436;
+      --text-sub: #636e72;
+      --border: #dfe6e9;
+      --streak-fire: #ff9f43;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 20px 15px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .dashboard {
+      width: 100%;
+      max-width: 550px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* 헤더 영역 */
+    .header {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+      color: white;
+      padding: 24px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.25);
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* 오늘의 달성률 프로그레스 바 */
+    .progress-card {
+      background: var(--card-bg);
+      padding: 18px 20px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 12px;
+      background-color: #f1f2f6;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--secondary), #45b7d1);
+      width: 0%;
+      border-radius: 10px;
+      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* 새 습관 추가 폼 */
+    .add-habit-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .add-habit-form input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-size: 0.95rem;
+      outline: none;
+      background: var(--card-bg);
+      transition: border 0.2s;
+    }
+
+    .add-habit-form input:focus {
+      border-color: var(--primary);
+    }
+
+    .add-habit-form button {
+      background-color: var(--text-main);
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s, background-color 0.2s;
+    }
+
+    .add-habit-form button:active {
+      transform: scale(0.96);
+    }
+
+    /* 습관 리스트 영역 */
+    .habit-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .habit-card {
+      background: var(--card-bg);
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: transform 0.2s;
+    }
+
+    .habit-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .habit-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .habit-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .streak-badge {
+      background-color: #fff3e0;
+      color: var(--streak-fire);
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 5px 10px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #b2bec3;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 2px 4px;
+    }
+
+    .delete-btn:hover {
+      color: var(--primary);
+    }
+
+    /* 주간 요일 체크 버튼 그리드 */
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .day-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .day-label {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    .day-label.today {
+      color: var(--primary);
+      font-weight: 800;
+    }
+
+    .check-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      background-color: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: transparent;
+      transition: all 0.2s ease;
+    }
+
+    .check-btn.checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: white;
+      box-shadow: 0 3px 8px rgba(255, 107, 107, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .check-btn.today-btn:not(.checked) {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    /* 하단 리셋 버튼 */
+    .footer-controls {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 4px;
+    }
+
+    .reset-btn {
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="header">
+      <h1>✨ 마이 루틴 트래커</h1>
+      <p id="current-date-display">오늘도 반짝이는 하루를 기록해 볼까요?</p>
+    </div>
+
+    <div class="progress-card">
+      <div class="progress-header">
+        <span>오늘의 목표 달성률</span>
+        <span id="today-percent">0%</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-fill"></div>
+      </div>
+    </div>
+
+    <form class="add-habit-form" id="habit-form">
+      <input type="text" id="habit-input" placeholder="새로운 일일 목표를 입력해 주세요 (예: 스트레칭)" required />
+      <button type="submit">추가</button>
+    </form>
+
+    <div class="habit-list" id="habit-list"></div>
+
+    <div class="footer-controls">
+      <button class="reset-btn" id="reset-week-btn">이번 주 기록 초기화</button>
+    </div>
+  </div>
+
+  <script>
+    const DAYS = ['월', '화', '수', '목', '금', '토', '일'];
+
+    // 오늘 요일 인덱스 계산 (월요일=0 ~ 일요일=6)
+    function getTodayIndex() {
+      const day = new Date().getDay();
+      return day === 0 ? 6 : day - 1;
+    }
+
+    const todayIndex = getTodayIndex();
+
+    // 상단 날짜 표시
+    const now = new Date();
+    const dateStr = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${DAYS[todayIndex]}요일)`;
+    document.getElementById('current-date-display').textContent = `${dateStr} · 오늘도 화이팅!`;
+
+    // 초기 샘플 데이터
+    const defaultHabits = [
+      { id: 1, title: '📖 책 읽기 (100권 챌린지)', days: [true, true, false, false, false, false, false] },
+      { id: 2, title: '🥁 드럼 패드 & 리듬 연습', days: [true, false, false, false, false, false, false] },
+      { id: 3, title: '👟 신나는 셔플댄스 스텝', days: [false, true, false, false, false, false, false] },
+      { id: 4, title: '🌸 자이언트 플라워 & 창작 시간', days: [true, true, false, false, false, false, false] }
+    ];
+
+    let habits = JSON.parse(localStorage.getItem('my_habits_2026')) || defaultHabits;
+
+    function saveHabits() {
+      localStorage.setItem('my_habits_2026', JSON.stringify(habits));
+    }
+
+    // 주간 연속 달성(Streak) 계산 함수
+    function calculateStreak(daysArray) {
+      let currentStreak = 0;
+      let maxStreak = 0;
+      for (let i = 0; i < daysArray.length; i++) {
+        if (daysArray[i]) {
+          currentStreak++;
+          if (currentStreak > maxStreak) maxStreak = currentStreak;
+        } else {
+          currentStreak = 0;
+        }
+      }
+      return maxStreak;
+    }
+
+    // 오늘 달성률 계산 및 업데이트
+    function updateTodayProgress() {
+      if (habits.length === 0) {
+        document.getElementById('today-percent').textContent = '0%';
+        document.getElementById('progress-fill').style.width = '0%';
+        return;
+      }
+      const completedToday = habits.filter(h => h.days[todayIndex]).length;
+      const percent = Math.round((completedToday / habits.length) * 100);
+      document.getElementById('today-percent').textContent = `${percent}% (${completedToday}/${habits.length})`;
+      document.getElementById('progress-fill').style.width = `${percent}%`;
+    }
+
+    // 화면 렌더링
+    function renderHabits() {
+      const listEl = document.getElementById('habit-list');
+      listEl.innerHTML = '';
+
+      habits.forEach((habit) => {
+        const streak = calculateStreak(habit.days);
+        const totalChecked = habit.days.filter(Boolean).length;
+
+        const card = document.createElement('div');
+        card.className = 'habit-card';
+
+        // 상단 타이틀 및 연속 달성 배지
+        const topHTML = `
+          <div class="habit-top">
+            <div class="habit-title">${habit.title}</div>
+            <div class="habit-actions">
+              <div class="streak-badge" title="주간 최대 연속 달성">
+                🔥 ${streak}일 연속 (총 ${totalChecked}회)
+              </div>
+              <button class="delete-btn" onclick="deleteHabit(${habit.id})" title="삭제">✕</button>
+            </div>
+          </div>
+        `;
+
+        // 요일별 버튼 생성
+        let gridHTML = '<div class="week-grid">';
+        DAYS.forEach((dayName, idx) => {
+          const isChecked = habit.days[idx];
+          const isToday = idx === todayIndex;
+          gridHTML += `
+            <div class="day-col">
+              <span class="day-label ${isToday ? 'today' : ''}">${dayName}${isToday ? '·오늘' : ''}</span>
+              <button 
+                class="check-btn ${isChecked ? 'checked' : ''} ${isToday ? 'today-btn' : ''}" 
+                onclick="toggleDay(${habit.id}, ${idx})">
+                ✓
+              </button>
+            </div>
+          `;
+        });
+        gridHTML += '</div>';
+
+        card.innerHTML = topHTML + gridHTML;
+        listEl.appendChild(card);
+      });
+
+      updateTodayProgress();
+    }
+
+    // 체크 토글 기능
+    window.toggleDay = function(habitId, dayIdx) {
+      habits = habits.map(h => {
+        if (h.id === habitId) {
+          const updatedDays = [...h.days];
+          updatedDays[dayIdx] = !updatedDays[dayIdx];
+          return { ...h, days: updatedDays };
+        }
+        return h;
+      });
+      saveHabits();
+      renderHabits();
+    };
+
+    // 습관 삭제 기능
+    window.deleteHabit = function(habitId) {
+      habits = habits.filter(h => h.id !== habitId);
+      saveHabits();
+      renderHabits();
+    };
+
+    // 새 습관 추가 기능
+    document.getElementById('habit-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const input = document.getElementById('habit-input');
+      const title = input.value.trim();
+      if (!title) return;
+
+      const newHabit = {
+        id: Date.now(),
+        title: title,
+        days: [false, false, false, false, false, false, false]
+      };
+
+      habits.push(newHabit);
+      input.value = '';
+      saveHabits();
+      renderHabits();
+    });
+
+    // 이번 주 기록 초기화
+    document.getElementById('reset-week-btn').addEventListener('click', function() {
+      if (confirm('이번 주 체크 기록을 모두 초기화할까요? (등록한 습관 목록은 유지됩니다)')) {
+        habits = habits.map(h => ({
+          ...h,
+          days: [false, false, false, false, false, false, false]
+        }));
+        saveHabits();
+        renderHabits();
+      }
+    });
+
+    // 첫 실행 렌더링
+    renderHabits();
+  </script>
+</body>
+</html>
