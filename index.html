@@ -2,458 +2,222 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나의 루틴 & 습관 대시보드</title>
+  <title>데일리 갱년기 & 신체 마인드 체크</title>
   <style>
     :root {
-      --bg-color: #f8f6f2;
-      --card-bg: #ffffff;
-      --primary: #ff6b6b;
-      --primary-light: #ffe3e3;
-      --secondary: #4ecdc4;
-      --text-main: #2d3436;
-      --text-sub: #636e72;
-      --border: #dfe6e9;
-      --streak-fire: #ff9f43;
+      --primary: #4A6FA5;
+      --bg: #F7F9FC;
+      --card-bg: #FFFFFF;
+      --text: #2D3748;
+      --border: #E2E8F0;
+      --accent: #E2847A;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background-color: var(--bg); color: var(--text); padding: 16px; display: flex; justify-content: center; }
+    .container { width: 100%; max-width: 520px; background: var(--card-bg); border-radius: 16px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+    h1 { font-size: 1.3rem; color: var(--primary); margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+    .subtitle { font-size: 0.85rem; color: #718096; margin-bottom: 20px; }
+    
+    .date-picker-wrap { margin-bottom: 20px; }
+    input[type="date"] { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.95rem; }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
+    .section { margin-bottom: 22px; }
+    .section-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 10px; color: #334155; }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      padding: 20px 15px;
-      display: flex;
-      justify-content: center;
-    }
+    /* 점수 선택 버튼 */
+    .rating-group { display: flex; gap: 6px; }
+    .rating-btn { flex: 1; padding: 10px 4px; border: 1px solid var(--border); border-radius: 8px; background: #fff; font-size: 0.85rem; cursor: pointer; text-align: center; }
+    .rating-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); font-weight: 600; }
 
-    .dashboard {
-      width: 100%;
-      max-width: 550px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+    /* 체크박스 그룹 */
+    .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip { padding: 8px 12px; border: 1px solid var(--border); border-radius: 20px; font-size: 0.82rem; cursor: pointer; background: #fff; }
+    .chip.active { background: #EEF2F6; border-color: var(--primary); color: var(--primary); font-weight: 600; }
 
-    /* 헤더 영역 */
-    .header {
-      background: linear-gradient(135deg, #ff6b6b, #ff8e53);
-      color: white;
-      padding: 24px 20px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.25);
-    }
+    textarea { width: 100%; height: 75px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; resize: none; font-size: 0.9rem; }
 
-    .header h1 {
-      font-size: 1.5rem;
-      margin-bottom: 6px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .header p {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    /* 오늘의 달성률 프로그레스 바 */
-    .progress-card {
-      background: var(--card-bg);
-      padding: 18px 20px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    }
-
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 10px;
-    }
-
-    .progress-bar-bg {
-      width: 100%;
-      height: 12px;
-      background-color: #f1f2f6;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--secondary), #45b7d1);
-      width: 0%;
-      border-radius: 10px;
-      transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    /* 새 습관 추가 폼 */
-    .add-habit-form {
-      display: flex;
-      gap: 8px;
-    }
-
-    .add-habit-form input {
-      flex: 1;
-      padding: 14px 16px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      font-size: 0.95rem;
-      outline: none;
-      background: var(--card-bg);
-      transition: border 0.2s;
-    }
-
-    .add-habit-form input:focus {
-      border-color: var(--primary);
-    }
-
-    .add-habit-form button {
-      background-color: var(--text-main);
-      color: white;
-      border: none;
-      padding: 0 20px;
-      border-radius: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform 0.1s, background-color 0.2s;
-    }
-
-    .add-habit-form button:active {
-      transform: scale(0.96);
-    }
-
-    /* 습관 리스트 영역 */
-    .habit-list {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .habit-card {
-      background: var(--card-bg);
-      padding: 18px;
-      border-radius: 18px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      transition: transform 0.2s;
-    }
-
-    .habit-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .habit-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .habit-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .streak-badge {
-      background-color: #fff3e0;
-      color: var(--streak-fire);
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 5px 10px;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .delete-btn {
-      background: none;
-      border: none;
-      color: #b2bec3;
-      cursor: pointer;
-      font-size: 1.1rem;
-      padding: 2px 4px;
-    }
-
-    .delete-btn:hover {
-      color: var(--primary);
-    }
-
-    /* 주간 요일 체크 버튼 그리드 */
-    .week-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-    }
-
-    .day-col {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .day-label {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      font-weight: 500;
-    }
-
-    .day-label.today {
-      color: var(--primary);
-      font-weight: 800;
-    }
-
-    .check-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      background-color: transparent;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: transparent;
-      transition: all 0.2s ease;
-    }
-
-    .check-btn.checked {
-      background-color: var(--primary);
-      border-color: var(--primary);
-      color: white;
-      box-shadow: 0 3px 8px rgba(255, 107, 107, 0.35);
-      transform: translateY(-2px);
-    }
-
-    .check-btn.today-btn:not(.checked) {
-      border-color: var(--primary);
-      background-color: var(--primary-light);
-    }
-
-    /* 하단 리셋 버튼 */
-    .footer-controls {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 4px;
-    }
-
-    .reset-btn {
-      background: none;
-      border: none;
-      color: var(--text-sub);
-      font-size: 0.8rem;
-      text-decoration: underline;
-      cursor: pointer;
-    }
+    /* 버튼류 */
+    .btn-main { width: 100%; padding: 14px; background: var(--primary); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; margin-top: 10px; }
+    .btn-main:active { opacity: 0.9; }
+    .btn-copy { width: 100%; padding: 10px; background: #EDF2F7; color: #4A5568; border: none; border-radius: 8px; font-size: 0.85rem; margin-top: 8px; cursor: pointer; }
+    
+    .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: #fff; padding: 10px 18px; border-radius: 20px; font-size: 0.85rem; display: none; }
   </style>
 </head>
 <body>
 
-  <div class="dashboard">
-    <div class="header">
-      <h1>✨ 마이 루틴 트래커</h1>
-      <p id="current-date-display">오늘도 반짝이는 하루를 기록해 볼까요?</p>
-    </div>
+<div class="container">
+  <h1>🩺 데일리 밸런스 체크</h1>
+  <p class="subtitle">에너지, 호르몬, 멘탈 상태를 기록하는 나만의 주치의 로그</p>
 
-    <div class="progress-card">
-      <div class="progress-header">
-        <span>오늘의 목표 달성률</span>
-        <span id="today-percent">0%</span>
-      </div>
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progress-fill"></div>
-      </div>
-    </div>
+  <div class="date-picker-wrap">
+    <input type="date" id="logDate">
+  </div>
 
-    <form class="add-habit-form" id="habit-form">
-      <input type="text" id="habit-input" placeholder="새로운 일일 목표를 입력해 주세요 (예: 스트레칭)" required />
-      <button type="submit">추가</button>
-    </form>
-
-    <div class="habit-list" id="habit-list"></div>
-
-    <div class="footer-controls">
-      <button class="reset-btn" id="reset-week-btn">이번 주 기록 초기화</button>
+  <!-- 신체 에너지 -->
+  <div class="section">
+    <div class="section-title">⚡ 활력 / 에너지 배터리 잔량</div>
+    <div class="rating-group" data-key="energy">
+      <div class="rating-btn" data-val="1">1 (방전)</div>
+      <div class="rating-btn" data-val="2">2</div>
+      <div class="rating-btn" data-val="3">3 (보통)</div>
+      <div class="rating-btn" data-val="4">4</div>
+      <div class="rating-btn" data-val="5">5 (활기참)</div>
     </div>
   </div>
 
-  <script>
-    const DAYS = ['월', '화', '수', '목', '금', '토', '일'];
+  <!-- 수면 질 -->
+  <div class="section">
+    <div class="section-title">🌙 지난밤 수면의 질</div>
+    <div class="rating-group" data-key="sleep">
+      <div class="rating-btn" data-val="1">자주 깸/설침</div>
+      <div class="rating-btn" data-val="2">다소 얕음</div>
+      <div class="rating-btn" data-val="3">보통</div>
+      <div class="rating-btn" data-val="4">푹 잤음</div>
+    </div>
+  </div>
 
-    // 오늘 요일 인덱스 계산 (월요일=0 ~ 일요일=6)
-    function getTodayIndex() {
-      const day = new Date().getDay();
-      return day === 0 ? 6 : day - 1;
+  <!-- 두뇌/집중도 -->
+  <div class="section">
+    <div class="section-title">💡 집중력 & 머릿속 맑음 (브레인포그 유무)</div>
+    <div class="rating-group" data-key="focus">
+      <div class="rating-btn" data-val="1">멍함/안개</div>
+      <div class="rating-btn" data-val="2">약간 산만</div>
+      <div class="rating-btn" data-val="3">양호함</div>
+      <div class="rating-btn" data-val="4">매우 선명</div>
+    </div>
+  </div>
+
+  <!-- 동반 신체/심리 증상 -->
+  <div class="section">
+    <div class="section-title">📋 오늘 겪은 반응 (복수 선택)</div>
+    <div class="chip-group" id="symptomsGroup">
+      <div class="chip" data-val="급격한 오후 방전">급격한 오후 방전</div>
+      <div class="chip" data-val="얼굴 열감/식은땀">얼굴 열감/식은땀</div>
+      <div class="chip" data-val="관절/근육 쑤심">관절/근육 쑤심</div>
+      <div class="chip" data-val="이유 없는 울컥/불안">이유 없는 울컥/불안</div>
+      <div class="chip" data-val="부정출혈 흔적">부정출혈 흔적</div>
+      <div class="chip" data-val="콘서타 복용 완료">콘서타 복용</div>
+      <div class="chip" data-val="비타민D 복용 완료">비타민D 복용</div>
+    </div>
+  </div>
+
+  <!-- 자유 메모 -->
+  <div class="section">
+    <div class="section-title">📝 짧은 한 줄 일기 & 특이사항</div>
+    <textarea id="memo" placeholder="예: 드럼 연습 30분 만에 지침, 오후에 햇볕 쬠 등"></textarea>
+  </div>
+
+  <button class="btn-main" onclick="saveRecord()">오늘 기록 저장하기</button>
+  <button class="btn-copy" onclick="copyDoctorSummary()">📋 진료/상담용 텍스트 복사</button>
+</div>
+
+<div class="toast" id="toast">저장되었습니다.</div>
+
+<script>
+  // 기본 설정 및 오늘 날짜 지정
+  const dateInput = document.getElementById('logDate');
+  dateInput.value = new Date().toISOString().split('T')[0];
+
+  let currentData = {
+    energy: null,
+    sleep: null,
+    focus: null,
+    symptoms: [],
+    memo: ''
+  };
+
+  // 단일 선택 핸들러
+  document.querySelectorAll('.rating-group').forEach(group => {
+    group.addEventListener('click', (e) => {
+      const btn = e.target.closest('.rating-btn');
+      if (!btn) return;
+      const key = group.dataset.key;
+      group.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentData[key] = btn.dataset.val;
+    });
+  });
+
+  // 다중 칩 선택 핸들러
+  document.getElementById('symptomsGroup').addEventListener('click', (e) => {
+    const chip = e.target.closest('.chip');
+    if (!chip) return;
+    chip.classList.toggle('active');
+    const val = chip.dataset.val;
+    if (currentData.symptoms.includes(val)) {
+      currentData.symptoms = currentData.symptoms.filter(item => item !== val);
+    } else {
+      currentData.symptoms.push(val);
     }
+  });
 
-    const todayIndex = getTodayIndex();
+  // 날짜 변경 시 로드
+  dateInput.addEventListener('change', loadRecord);
 
-    // 상단 날짜 표시
-    const now = new Date();
-    const dateStr = `${now.getFullYear()}년 ${now.getMonth() + 1}월 ${now.getDate()}일 (${DAYS[todayIndex]}요일)`;
-    document.getElementById('current-date-display').textContent = `${dateStr} · 오늘도 화이팅!`;
+  function loadRecord() {
+    const key = `health_${dateInput.value}`;
+    const raw = localStorage.getItem(key);
+    
+    // 초기화
+    document.querySelectorAll('.rating-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    document.getElementById('memo').value = '';
+    currentData = { energy: null, sleep: null, focus: null, symptoms: [], memo: '' };
 
-    // 초기 샘플 데이터
-    const defaultHabits = [
-      { id: 1, title: '📖 책 읽기 (100권 챌린지)', days: [true, true, false, false, false, false, false] },
-      { id: 2, title: '🥁 드럼 패드 & 리듬 연습', days: [true, false, false, false, false, false, false] },
-      { id: 3, title: '👟 신나는 셔플댄스 스텝', days: [false, true, false, false, false, false, false] },
-      { id: 4, title: '🌸 자이언트 플라워 & 창작 시간', days: [true, true, false, false, false, false, false] }
-    ];
-
-    let habits = JSON.parse(localStorage.getItem('my_habits_2026')) || defaultHabits;
-
-    function saveHabits() {
-      localStorage.setItem('my_habits_2026', JSON.stringify(habits));
-    }
-
-    // 주간 연속 달성(Streak) 계산 함수
-    function calculateStreak(daysArray) {
-      let currentStreak = 0;
-      let maxStreak = 0;
-      for (let i = 0; i < daysArray.length; i++) {
-        if (daysArray[i]) {
-          currentStreak++;
-          if (currentStreak > maxStreak) maxStreak = currentStreak;
-        } else {
-          currentStreak = 0;
+    if (raw) {
+      const data = JSON.parse(raw);
+      currentData = data;
+      
+      // 반영
+      ['energy', 'sleep', 'focus'].forEach(type => {
+        if (data[type]) {
+          const btn = document.querySelector(`.rating-group[data-key="${type}"] .rating-btn[data-val="${data[type]}"]`);
+          if (btn) btn.classList.add('active');
         }
-      }
-      return maxStreak;
-    }
+      });
 
-    // 오늘 달성률 계산 및 업데이트
-    function updateTodayProgress() {
-      if (habits.length === 0) {
-        document.getElementById('today-percent').textContent = '0%';
-        document.getElementById('progress-fill').style.width = '0%';
-        return;
-      }
-      const completedToday = habits.filter(h => h.days[todayIndex]).length;
-      const percent = Math.round((completedToday / habits.length) * 100);
-      document.getElementById('today-percent').textContent = `${percent}% (${completedToday}/${habits.length})`;
-      document.getElementById('progress-fill').style.width = `${percent}%`;
-    }
-
-    // 화면 렌더링
-    function renderHabits() {
-      const listEl = document.getElementById('habit-list');
-      listEl.innerHTML = '';
-
-      habits.forEach((habit) => {
-        const streak = calculateStreak(habit.days);
-        const totalChecked = habit.days.filter(Boolean).length;
-
-        const card = document.createElement('div');
-        card.className = 'habit-card';
-
-        // 상단 타이틀 및 연속 달성 배지
-        const topHTML = `
-          <div class="habit-top">
-            <div class="habit-title">${habit.title}</div>
-            <div class="habit-actions">
-              <div class="streak-badge" title="주간 최대 연속 달성">
-                🔥 ${streak}일 연속 (총 ${totalChecked}회)
-              </div>
-              <button class="delete-btn" onclick="deleteHabit(${habit.id})" title="삭제">✕</button>
-            </div>
-          </div>
-        `;
-
-        // 요일별 버튼 생성
-        let gridHTML = '<div class="week-grid">';
-        DAYS.forEach((dayName, idx) => {
-          const isChecked = habit.days[idx];
-          const isToday = idx === todayIndex;
-          gridHTML += `
-            <div class="day-col">
-              <span class="day-label ${isToday ? 'today' : ''}">${dayName}${isToday ? '·오늘' : ''}</span>
-              <button 
-                class="check-btn ${isChecked ? 'checked' : ''} ${isToday ? 'today-btn' : ''}" 
-                onclick="toggleDay(${habit.id}, ${idx})">
-                ✓
-              </button>
-            </div>
-          `;
+      if (data.symptoms) {
+        data.symptoms.forEach(s => {
+          const chip = document.querySelector(`.chip[data-val="${s}"]`);
+          if (chip) chip.classList.add('active');
         });
-        gridHTML += '</div>';
-
-        card.innerHTML = topHTML + gridHTML;
-        listEl.appendChild(card);
-      });
-
-      updateTodayProgress();
-    }
-
-    // 체크 토글 기능
-    window.toggleDay = function(habitId, dayIdx) {
-      habits = habits.map(h => {
-        if (h.id === habitId) {
-          const updatedDays = [...h.days];
-          updatedDays[dayIdx] = !updatedDays[dayIdx];
-          return { ...h, days: updatedDays };
-        }
-        return h;
-      });
-      saveHabits();
-      renderHabits();
-    };
-
-    // 습관 삭제 기능
-    window.deleteHabit = function(habitId) {
-      habits = habits.filter(h => h.id !== habitId);
-      saveHabits();
-      renderHabits();
-    };
-
-    // 새 습관 추가 기능
-    document.getElementById('habit-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const input = document.getElementById('habit-input');
-      const title = input.value.trim();
-      if (!title) return;
-
-      const newHabit = {
-        id: Date.now(),
-        title: title,
-        days: [false, false, false, false, false, false, false]
-      };
-
-      habits.push(newHabit);
-      input.value = '';
-      saveHabits();
-      renderHabits();
-    });
-
-    // 이번 주 기록 초기화
-    document.getElementById('reset-week-btn').addEventListener('click', function() {
-      if (confirm('이번 주 체크 기록을 모두 초기화할까요? (등록한 습관 목록은 유지됩니다)')) {
-        habits = habits.map(h => ({
-          ...h,
-          days: [false, false, false, false, false, false, false]
-        }));
-        saveHabits();
-        renderHabits();
       }
-    });
 
-    // 첫 실행 렌더링
-    renderHabits();
-  </script>
+      document.getElementById('memo').value = data.memo || '';
+    }
+  }
+
+  function saveRecord() {
+    currentData.memo = document.getElementById('memo').value;
+    const key = `health_${dateInput.value}`;
+    localStorage.setItem(key, JSON.stringify(currentData));
+    showToast("기록이 성공적으로 저장되었습니다.");
+  }
+
+  function copyDoctorSummary() {
+    const d = dateInput.value;
+    const text = `[건강 체크 기록 - ${d}]
+- 에너지 잔량: ${currentData.energy || '미입력'}/5
+- 수면 상태: ${currentData.sleep || '미입력'}
+- 인지/집중력: ${currentData.focus || '미입력'}
+- 체크 증상: ${currentData.symptoms.join(', ') || '없음'}
+- 메모: ${document.getElementById('memo').value || '없음'}`;
+
+    navigator.clipboard.writeText(text).then(() => {
+      showToast("상담용 요약이 클립보드에 복사되었습니다.");
+    });
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 2000);
+  }
+
+  // 초기 실행 시 오늘자 데이터 로드
+  loadRecord();
+</script>
 </body>
 </html>
