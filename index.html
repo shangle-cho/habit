@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
@@ -11,16 +12,15 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#F7A389">
 
-  <!-- Custom Analog Timer Icon (High-Res SVG Data URI) -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFA68D'/%3E%3Cstop offset='100%25' stop-color='%23F27D60'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='url(%23bgGrad)'/%3E%3Cpath d='M236 48 h40 v40 h-40 z' fill='%23FFF'/%3E%3Cpath d='M356 82 l28 28 -28 28 -28 -28 z' fill='%23FFF' opacity='0.9'/%3E%3Ccircle cx='256' cy='280' r='165' fill='%23FFF'/%3E%3Ccircle cx='256' cy='280' r='142' fill='%23FFF9F5' stroke='%23FFE5DC' stroke-width='6'/%3E%3Ccircle cx='256' cy='168' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='368' cy='280' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='256' cy='392' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='144' cy='280' r='5.5' fill='%23F27D60'/%3E%3Cline x1='256' y1='280' x2='326' y2='210' stroke='%23F27D60' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='256' y1='280' x2='256' y2='200' stroke='%234A3B32' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='280' r='15' fill='%234A3B32'/%3E%3C/svg%3E">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='bgGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFA68D'/%3E%3Cstop offset='100%25' stop-color='%23F27D60'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='120' fill='url(%23bgGrad)'/%3E%3Cpath d='M236 48 h40 v40 h-40 z' fill='%23FFF'/%3E%3Cpath d='M356 82 l28 28 -28 28 -28 -28 z' fill='%23FFF' opacity='0.9'/%3E%3Ccircle cx='256' cy='280' r='165' fill='%23FFF'/%3E%3Ccircle cx='256' cy='280' r='142' fill='%23FFF9F5' stroke='%23FFE5DC' stroke-width='6'/%3E%3Ccircle cx='256' cy='168' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='368' cy='280' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='256' cy='392' r='5.5' fill='%23F27D60'/%3E%3Ccircle cx='144' cy='280' r='5.5' fill='%23F27D60'/%3E%3Cline x1='256' y1='280' x2='326' y2='210' stroke='%23F27D60' stroke-width='14' stroke-linecap='round'/%3E%3Cline x1='256' y1='280' x2='256' y2='200' stroke='%234A3B32' stroke-width='10' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='280' r='15' fill='%234A3B32'/%3E%3C/svg%3E">
+  <!-- Classic Crisp Analog Stopwatch SVG Icon (Favicon & Apple Touch Icon) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='metalBg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFA68D'/%3E%3Cstop offset='100%25' stop-color='%23F27D60'/%3E%3C/linearGradient%3E%3ClinearGradient id='rimShine' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFFFFF' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23D45D40' stop-opacity='0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23metalBg)'/%3E%3Cpath d='M232 40 h48 v42 h-48 z' fill='%23FFFFFF' rx='6'/%3E%3Cpath d='M220 30 h72 v14 h-72 z' fill='%23FFFFFF' rx='5'/%3E%3Cpath d='M356 86 l26 26 -20 20 -26 -26 z' fill='%23FFFFFF' opacity='0.85' rx='4'/%3E%3Ccircle cx='256' cy='284' r='172' fill='%23FFFFFF' filter='drop-shadow(0 8px 16px rgba(0,0,0,0.12))'/%3E%3Ccircle cx='256' cy='284' r='172' fill='none' stroke='url(%23rimShine)' stroke-width='8'/%3E%3Ccircle cx='256' cy='284' r='154' fill='%23FFFDF9' stroke='%23FFEADB' stroke-width='4'/%3E%3C!-- Hour / Minute Tick Marks --%3E%3Cg stroke='%23CBBBB0' stroke-width='3' stroke-linecap='round'%3E%3Cline x1='256' y1='144' x2='256' y2='158' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='396' y1='284' x2='382' y2='284' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='256' y1='424' x2='256' y2='410' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='116' y1='284' x2='130' y2='284' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='355' y1='185' x2='345' y2='195'/%3E%3Cline x1='355' y1='383' x2='345' y2='373'/%3E%3Cline x1='157' y1='383' x2='167' y2='373'/%3E%3Cline x1='157' y1='185' x2='167' y2='195'/%3E%3C/g%3E%3C!-- Minute Dial Track --%3E%3Ccircle cx='256' cy='284' r='48' fill='none' stroke='%23FCEAE2' stroke-width='2' stroke-dasharray='4 4'/%3E%3C!-- Watch Hands --%3E%3Cline x1='256' y1='284' x2='256' y2='184' stroke='%234A3B32' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='256' y1='284' x2='336' y2='228' stroke='%23F27D60' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='284' r='11' fill='%234A3B32'/%3E%3Ccircle cx='256' cy='284' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cdefs%3E%3ClinearGradient id='metalBg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFA68D'/%3E%3Cstop offset='100%25' stop-color='%23F27D60'/%3E%3C/linearGradient%3E%3ClinearGradient id='rimShine' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFFFFF' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23D45D40' stop-opacity='0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='512' height='512' rx='115' fill='url(%23metalBg)'/%3E%3Cpath d='M232 40 h48 v42 h-48 z' fill='%23FFFFFF' rx='6'/%3E%3Cpath d='M220 30 h72 v14 h-72 z' fill='%23FFFFFF' rx='5'/%3E%3Cpath d='M356 86 l26 26 -20 20 -26 -26 z' fill='%23FFFFFF' opacity='0.85' rx='4'/%3E%3Ccircle cx='256' cy='284' r='172' fill='%23FFFFFF' filter='drop-shadow(0 8px 16px rgba(0,0,0,0.12))'/%3E%3Ccircle cx='256' cy='284' r='172' fill='none' stroke='url(%23rimShine)' stroke-width='8'/%3E%3Ccircle cx='256' cy='284' r='154' fill='%23FFFDF9' stroke='%23FFEADB' stroke-width='4'/%3E%3C!-- Hour / Minute Tick Marks --%3E%3Cg stroke='%23CBBBB0' stroke-width='3' stroke-linecap='round'%3E%3Cline x1='256' y1='144' x2='256' y2='158' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='396' y1='284' x2='382' y2='284' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='256' y1='424' x2='256' y2='410' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='116' y1='284' x2='130' y2='284' stroke='%23F27D60' stroke-width='5'/%3E%3Cline x1='355' y1='185' x2='345' y2='195'/%3E%3Cline x1='355' y1='383' x2='345' y2='373'/%3E%3Cline x1='157' y1='383' x2='167' y2='373'/%3E%3Cline x1='157' y1='185' x2='167' y2='195'/%3E%3C/g%3E%3C!-- Minute Dial Track --%3E%3Ccircle cx='256' cy='284' r='48' fill='none' stroke='%23FCEAE2' stroke-width='2' stroke-dasharray='4 4'/%3E%3C!-- Watch Hands --%3E%3Cline x1='256' y1='284' x2='256' y2='184' stroke='%234A3B32' stroke-width='8' stroke-linecap='round'/%3E%3Cline x1='256' y1='284' x2='336' y2='228' stroke='%23F27D60' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='284' r='11' fill='%234A3B32'/%3E%3Ccircle cx='256' cy='284' r='5' fill='%23FFFFFF'/%3E%3C/svg%3E">
 
-  <!-- Google Fonts & Tailwind CSS -->
+  <!-- Fonts & Libraries -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Canvas Confetti & Tone.js for soft sound effects -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
 
@@ -63,7 +63,6 @@
     }
   </script>
   <style>
-    /* Custom SVG circular progress styling */
     .progress-ring__circle {
       transition: stroke-dashoffset 0.35s linear;
       transform: rotate(-90deg);
@@ -100,24 +99,28 @@
       </p>
     </header>
 
-    <!-- Quick Preset Buttons -->
+    <!-- Quick Preset Buttons (3m, 5m, 10m, 15m, 25m) -->
     <section class="w-full mb-6 z-10" aria-label="시간 프리셋 선택">
-      <div class="grid grid-cols-4 gap-2">
-        <button onclick="setTimer(3)" class="preset-btn py-2.5 px-1 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-xs font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
-          <span class="text-base mb-0.5">🌱</span>
-          <span>3분 힐링</span>
+      <div class="grid grid-cols-5 gap-1.5">
+        <button onclick="setTimer(3)" class="preset-btn py-2.5 px-0.5 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-[11px] font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
+          <span class="text-sm mb-0.5">🌱</span>
+          <span>3분</span>
         </button>
-        <button onclick="setTimer(5)" class="preset-btn py-2.5 px-1 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-xs font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
-          <span class="text-base mb-0.5">☕</span>
-          <span>5분 시작</span>
+        <button onclick="setTimer(5)" class="preset-btn py-2.5 px-0.5 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-[11px] font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
+          <span class="text-sm mb-0.5">☕</span>
+          <span>5분</span>
         </button>
-        <button onclick="setTimer(10)" class="preset-btn active-preset py-2.5 px-1 rounded-2xl bg-cozy-coral text-white border border-cozy-coral shadow-md shadow-cozy-coral/30 text-xs font-bold transition-all duration-200 active:scale-95 flex flex-col items-center">
-          <span class="text-base mb-0.5">⭐</span>
-          <span>10분 집중</span>
+        <button onclick="setTimer(10)" class="preset-btn active-preset py-2.5 px-0.5 rounded-2xl bg-cozy-coral text-white border border-cozy-coral shadow-md shadow-cozy-coral/30 text-[11px] font-bold transition-all duration-200 active:scale-95 flex flex-col items-center">
+          <span class="text-sm mb-0.5">⭐</span>
+          <span>10분</span>
         </button>
-        <button onclick="setTimer(15)" class="preset-btn py-2.5 px-1 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-xs font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
-          <span class="text-base mb-0.5">🎯</span>
-          <span>15분 완성</span>
+        <button onclick="setTimer(15)" class="preset-btn py-2.5 px-0.5 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-[11px] font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
+          <span class="text-sm mb-0.5">🎯</span>
+          <span>15분</span>
+        </button>
+        <button onclick="setTimer(25)" class="preset-btn py-2.5 px-0.5 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-[11px] font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center">
+          <span class="text-sm mb-0.5">🔥</span>
+          <span>25분</span>
         </button>
       </div>
     </section>
@@ -219,7 +222,6 @@
   </main>
 
   <script>
-    // State variables
     let totalSeconds = 10 * 60;
     let remainingSeconds = 10 * 60;
     let timerId = null;
@@ -227,7 +229,6 @@
     let soundEnabled = true;
     let completedSessions = 0;
 
-    // Encouraging messages pool
     const messages = [
       "딴생각 나도 괜찮아요. 딱 한 문제만 보고 덮어요!",
       "5분이면 충분해요. 시작한 것만으로도 대단한 일!",
@@ -236,7 +237,6 @@
       "오늘의 10분이 내일의 자격증을 만들어요 ⭐"
     ];
 
-    // DOM Elements
     const timeDisplay = document.getElementById('timeDisplay');
     const toggleBtn = document.getElementById('toggleBtn');
     const toggleIcon = document.getElementById('toggleIcon');
@@ -250,11 +250,9 @@
     const soundIcon = document.getElementById('soundIcon');
     const presetButtons = document.querySelectorAll('.preset-btn');
 
-    // Circumference of 108 radius circle = 2 * PI * 108 ≈ 678.58
     const CIRCUMFERENCE = 678.58;
     progressCircle.style.strokeDasharray = CIRCUMFERENCE;
 
-    // Tone.js Synth for gentle chime
     let synth = null;
 
     function initTone() {
@@ -271,12 +269,11 @@
           }).toDestination();
           synth.volume.value = -6;
         } catch(e) {
-          console.log("Audio not allowed yet");
+          console.log("Audio permission required");
         }
       }
     }
 
-    // Play completion chime
     function playChime() {
       if (!soundEnabled) return;
       initTone();
@@ -292,7 +289,6 @@
       }
     }
 
-    // Play soft tick/click on start
     function playStartTone() {
       if (!soundEnabled) return;
       initTone();
@@ -304,14 +300,12 @@
       } catch(e) {}
     }
 
-    // Format seconds to mm:ss
     function formatTime(sec) {
       const mins = Math.floor(sec / 60);
       const secs = sec % 60;
       return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
     }
 
-    // Update Progress Ring & Display
     function updateDisplay() {
       timeDisplay.textContent = formatTime(remainingSeconds);
       const fraction = remainingSeconds / totalSeconds;
@@ -319,7 +313,6 @@
       progressCircle.style.strokeDashoffset = offset;
     }
 
-    // Toggle Start / Pause
     function toggleTimer() {
       if (isRunning) {
         pauseTimer();
@@ -373,14 +366,12 @@
       updateDisplay();
     }
 
-    // When timer hits 00:00
     function completeTimer() {
       pauseTimer();
       completedSessions++;
       completedCount.textContent = `${completedSessions}회`;
       statusText.textContent = "오늘 분량 완벽 달성! 멋져요 🎉";
       
-      // Fire festive warm confetti
       if (typeof confetti === 'function') {
         confetti({
           particleCount: 70,
@@ -399,37 +390,32 @@
       }, 5000);
     }
 
-    // Set duration from preset (minutes)
     function setTimer(minutes) {
       pauseTimer();
       totalSeconds = minutes * 60;
       remainingSeconds = totalSeconds;
       sessionTag.textContent = `컴활 ${minutes}분 챌린지`;
 
-      // Cycle message randomly
       const randomMsg = messages[Math.floor(Math.random() * messages.length)];
       motivationalMsg.textContent = randomMsg;
 
-      // Update button active styles
       presetButtons.forEach(btn => {
         if (btn.textContent.includes(`${minutes}분`)) {
-          btn.className = "preset-btn active-preset py-2.5 px-1 rounded-2xl bg-cozy-coral text-white border border-cozy-coral shadow-md shadow-cozy-coral/30 text-xs font-bold transition-all duration-200 active:scale-95 flex flex-col items-center";
+          btn.className = "preset-btn active-preset py-2.5 px-0.5 rounded-2xl bg-cozy-coral text-white border border-cozy-coral shadow-md shadow-cozy-coral/30 text-[11px] font-bold transition-all duration-200 active:scale-95 flex flex-col items-center";
         } else {
-          btn.className = "preset-btn py-2.5 px-1 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-xs font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center";
+          btn.className = "preset-btn py-2.5 px-0.5 rounded-2xl bg-cozy-card border border-cozy-peach/60 text-[11px] font-bold text-cozy-muted hover:bg-cozy-peach/50 hover:text-cozy-brown transition-all duration-200 active:scale-95 flex flex-col items-center";
         }
       });
 
       resetTimer();
     }
 
-    // Add +1 minute on the fly
     function addMinute(mins) {
       remainingSeconds += mins * 60;
       totalSeconds += mins * 60;
       updateDisplay();
     }
 
-    // Toggle Sound On/Off
     function toggleSound() {
       soundEnabled = !soundEnabled;
       soundIcon.textContent = soundEnabled ? '🔔' : '🔕';
@@ -438,7 +424,6 @@
       }
     }
 
-    // Start on window load
     window.onload = function() {
       updateDisplay();
     };
